@@ -1,14 +1,25 @@
 version: '3.4'
 
 services:
+  db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=RAMCfJ85
+
   eshopwebmvc:
     image: ${DOCKER_REGISTRY-}eshopwebmvc
     build:
       context: .
       dockerfile: src/Web/Dockerfile
+    depends_on:
+      - db
   eshoppublicapi:
     image: ${DOCKER_REGISTRY-}eshoppublicapi
     build:
       context: .
       dockerfile: src/PublicApi/Dockerfile
-
+    depends_on:
+      - db

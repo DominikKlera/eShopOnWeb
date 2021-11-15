@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -26,9 +26,11 @@ public class Program
                 var catalogContext = services.GetRequiredService<CatalogContext>();
                 await CatalogContextSeed.SeedAsync(catalogContext, loggerFactory);
 
+                var appIdentityDbContext = services.GetRequiredService<AppIdentityDbContext>();
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                await AppIdentityDbContextSeed.SeedAsync(userManager, roleManager);
+
+                await AppIdentityDbContextSeed.SeedAsync(appIdentityDbContext, userManager, roleManager, loggerFactory);
             }
             catch (Exception ex)
             {

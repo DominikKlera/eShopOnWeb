@@ -44,10 +44,10 @@ public class Startup
     public void ConfigureDevelopmentServices(IServiceCollection services)
     {
         // use in-memory database
-        ConfigureInMemoryDatabases(services);
+        //ConfigureInMemoryDatabases(services);
 
         // use real database
-        //ConfigureProductionServices(services);
+        ConfigureProductionServices(services);
     }
 
     public void ConfigureDockerServices(IServiceCollection services)
@@ -230,11 +230,11 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute("default", "{controller:slugify=Home}/{action:slugify=Index}/{id?}");
-            endpoints.MapRazorPages();
+            endpoints.MapRazorPages(); 
             endpoints.MapHealthChecks("home_page_health_check", new HealthCheckOptions { Predicate = check => check.Tags.Contains("homePageHealthCheck") });
             endpoints.MapHealthChecks("api_health_check", new HealthCheckOptions { Predicate = check => check.Tags.Contains("apiHealthCheck") });
-                //endpoints.MapBlazorHub("/admin");
-                endpoints.MapFallbackToFile("index.html");
+            //endpoints.MapBlazorHub("/admin");
+            endpoints.MapFallbackToFile("index.html");
         });
     }
 
