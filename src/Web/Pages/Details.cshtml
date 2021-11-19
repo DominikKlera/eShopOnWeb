@@ -1,0 +1,33 @@
+﻿@page "{handler?}"
+@model Microsoft.eShopWeb.Web.Pages.DetailsModel
+@{
+    ViewData["Title"] = "Product";
+}
+<section class="esh-catalog-hero">
+    <div class="container">
+        <img class="esh-catalog-title" src="~/images/main_banner_text.png" />
+    </div>
+</section>
+
+<div class="container">
+
+    @if (Model.CatalogModel != null)
+    {
+        <img class="esh-catalog-thumbnail" src="@Model.CatalogModel.PictureUri" />
+        <div class="esh-catalog-name">
+            <span>@Model.CatalogModel.Name</span>
+        </div>
+        <div class="esh-catalog-price">
+            <span>@Model.CatalogModel.Price.ToString("N2")</span>
+        </div>
+
+        <div>   
+            @Model.CatalogModel.Descrition
+        </div>
+    }
+
+    <section class="esh-basket-item">
+        <a asp-page="/Index" class="btn esh-basket-checkout text-white">[ Continue Shopping..]</a>
+    </section>
+
+</div>

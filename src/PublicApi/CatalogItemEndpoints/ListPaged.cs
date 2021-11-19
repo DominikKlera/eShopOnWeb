@@ -40,14 +40,14 @@ public class ListPaged : BaseAsyncEndpoint
     {
         var response = new ListPagedCatalogItemResponse(request.CorrelationId());
 
-        var filterSpec = new CatalogFilterSpecification(request.CatalogBrandId, request.CatalogTypeId);
+        var filterSpec = new CatalogFilterSpecification(request.CatalogBrandId, request.CatalogTypeId, "");
         int totalItems = await _itemRepository.CountAsync(filterSpec, cancellationToken);
 
         var pagedSpec = new CatalogFilterPaginatedSpecification(
             skip: request.PageIndex * request.PageSize,
             take: request.PageSize,
             brandId: request.CatalogBrandId,
-            typeId: request.CatalogTypeId);
+            typeId: request.CatalogTypeId, "");
 
         var items = await _itemRepository.ListAsync(pagedSpec, cancellationToken);
 
