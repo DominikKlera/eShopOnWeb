@@ -57,6 +57,7 @@ public class CatalogViewModelService : ICatalogViewModelService
     {
         _logger.LogInformation("GetCatalogItems called.");
 
+        text = text?.Trim().ToLower() ?? "";
         var filterSpecification = new CatalogFilterSpecification(brandId, typeId, text);
         var filterPaginatedSpecification =
             new CatalogFilterPaginatedSpecification(itemsPage * pageIndex, itemsPage, brandId, typeId, text);
